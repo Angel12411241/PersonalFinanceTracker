@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script type="module" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Personal Finance Tracker</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <header class="bg-dark text-white text-center py-3">
+        <h1 class="mb-0">Personal Finance Tracker</h1>
+
+        <nav>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#transactions">Transactions</a>
+          <a href="#accounts">Accounts</a>
+          <a href="#budgets">Budgets</a>
+          <a href="#reports">Reports</a>
+        </nav>
+      </header>
+      <main>
+        <section id="dashboard">
+          <h2>Dashboard</h2>
+
+          <div id="income-expense-summary">
+            <h3>Income and Expenses</h3>
+            <canvas id="income-expense-chart"></canvas>
+            <div>
+              <h4>Income</h4>
+              <p id="total-income">
+                <!-- Display total income -->
+              </p>
+            </div>
+            <div>
+              <h4>Expenses</h4>
+              <p id="total-expenses">
+                <!-- Display total expenses -->
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="transactions">
+          <h2>Transactions</h2>
+          <form id="transaction-form">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required />
+
+            <label for="account">Account:</label>
+            <select id="account" name="account" required>
+              <!-- add account names here -->
+            </select>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+              <option value="groceries">Groceries</option>
+              <option value="rent">Rent</option>
+              <option value="utilities">Utilities</option>
+              <option value="eating_out">Eating Out</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="transportation">Transportation</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="clothing">Clothing</option>
+              <option value="income">Income</option>
+            </select>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required />
+
+            <label for="amount">Amount:</label>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              step="0.01"
+              required
+            />
+
+            <button type="submit">Add Transaction</button>
+          </form>
+
+          <h3>Transaction List</h3>
+          <table id="transaction-list">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Account</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+        <section id="accounts">
+          <h2>Accounts</h2>
+          <form id="account-form">
+            <label for="account-name">Account Name:</label>
+            <input type="text" id="account-name" name="account-name" required />
+
+            <label for="account-type">Account Type:</label>
+            <select id="account-type" name="account-type" required>
+              <option value="checking">Checking Account</option>
+              <option value="savings">Savings Account</option>
+              <option value="credit_card">Credit Card</option>
+            </select>
+
+            <label for="initial-balance">Initial Balance:</label>
+            <input
+              type="number"
+              id="initial-balance"
+              name="initial-balance"
+              step="0.01"
+              required
+            />
+
+            <button type="submit">Add Account</button>
+          </form>
+
+          <h3>Account List</h3>
+          <table id="account-list">
+            <thead>
+              <tr>
+                <th>Account Name</th>
+                <th>Account Type</th>
+                <th>Balance</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populate with account data -->
+            </tbody>
+          </table>
+        </section>
+
+        <section id="budgets">
+          <h2>Budgets</h2>
+          <form id="budget-form">
+            <label for="budget-category">Category:</label>
+            <select id="budget-category" name="budget-category" required>
+              <option value="groceries">Groceries</option>
+              <option value="rent">Rent</option>
+              <option value="utilities">Utilities</option>
+              <option value="eating_out">Eating Out</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="transportation">Transportation</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="clothing">Clothing</option>
+            </select>
+
+            <label for="budget-amount">Amount:</label>
+            <input
+              type="number"
+              id="budget-amount"
+              name="budget-amount"
+              step="0.01"
+              required
+            />
+
+            <label for="budget-period">Period:</label>
+            <select id="budget-period" name="budget-period" required>
+              <option value="monthly">Monthly</option>
+              <option value="quarterly">Quarterly</option>
+              <option value="annually">Annually</option>
+            </select>
+
+            <button type="submit">Add Budget</button>
+          </form>
+
+          <h3>Budget List</h3>
+          <table id="budget-list">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Period</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Populate with budget data -->
+            </tbody>
+          </table>
+        </section>
+
+        <section id="reports">
+          <h2>Reports</h2>
+
+          <div id="report-selection">
+            <label for="report-type">Report Type:</label>
+            <select id="report-type" name="report-type" required>
+              <option value="income-vs-expense">Income vs. Expenses</option>
+              <option value="category-summary">Category Summary</option>
+              <option value="monthly-summary">Monthly Summary</option>
+              <option value="annual-summary">Annual Summary</option>
+            </select>
+
+            <label for="report-date">Date Range:</label>
+            <input
+              type="date"
+              id="report-start-date"
+              name="report-start-date"
+              required
+            />
+            <span>to</span>
+            <input
+              type="date"
+              id="report-end-date"
+              name="report-end-date"
+              required
+            />
+
+            <button type="button" id="generate-report">Generate Report</button>
+          </div>
+
+          <div id="report-display">
+            <!-- Display the generated report here -->
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="app-info">
+          <h3>Personal Finance Tracker</h3>
+          <p>&copy; Angel Todorov. All Rights Reserved.</p>
+        </div>
+
+        <div class="social-media-links">
+          <a
+            href="https://www.facebook.com/angel.todorov.378"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Facebook</a
+          >
+          <a
+            href="https://www.instagram.com/angel.todorov.378/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Instagram</a
+          >
+        </div>
+      </footer>
+
+      <script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSGFpoO8LF+WzU4lYwHs5hYG6tyz3U4Hnpz7L4R9yjU6K8U6Sf/7"
+        crossorigin="anonymous"
+      ></script>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-eMNCOe7tC1doHpGoJtKh7z7lGz7fuP4F8nfdFvAOA6Gg/z6Y5J6XqqyGXYM2ntX5"
+        crossorigin="anonymous"
+      ></script>
+
+      <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqFjcJ6pajs/rfdfs3SO+kD4Ck5BdPtF+to8xMko00mLID"
+        crossorigin="anonymous"
+      ></script>
+    </div>
+  </body>
+</html>
